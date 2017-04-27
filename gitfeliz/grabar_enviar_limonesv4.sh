@@ -2,7 +2,7 @@
 # hecho para mi pc de escritorio
 # el 2017/01
 rm *.*~
-cp /home/xoldfusion/Descargas/openxava-5.6.1_librocomprasv4/workspace.dist/librocomprasv3.dist/*.war  /home/xoldfusion/Descargas/librocompras2017/amazon2017llave/
+cp /home/xoldfusion/Descargas/openxava-5.6.1_librocomprasv4/workspace.dist/librocomprasv4.dist/*.war  /home/xoldfusion/Descargas/librocompras2017/amazon2017llave/
 cp -r /home/xoldfusion/Descargas/openxava-5.6.1_librocomprasv4/workspace/librocomprasv4  librocomprasv4
 cp /home/xoldfusion/Descargas/openxava-5.6.1_librocomprasv4/tomcat/conf/*.xml librocomprasv4/tomcatfeliz
 cp *.sh librocomprasv4/gitfeliz
