@@ -1,0 +1,14 @@
+recuerde
+-----------
+
+hecho el 2017/01
+Para el openshift
+1. configurar unpackwars=true en el server.xml
+
+2.tocar el path del catalina.properties para que lea el driver de postgres
+common.loader=${catalina.base}/lib,${catalina.base}/lib/*.jar,${catalina.home}/lib,${catalina.home}/lib/*.jar,${catalina.home}../app-root/data/*.jar
+tal vez sea mejor poner el driver de postgres dentro del war file
+
+./app-root/runtime/dependencies/jbossews/webapps/lavadero2/WEB-INF/lib/postgresql-9.3-1103.jdbc3.jar
+
+3. poner en el server.xml los JNDI al postgres, de acuerdo a los ejemplos con las variables de entorno
