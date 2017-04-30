@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="librocompras2" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="90"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/casaderoger/librocompras_1"/>
+	<property name="ireport.jasperserver.url" value="http://pecerafeliz.lcompras.biz/jasperserver/services/repository"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="p_yyyymm" class="java.lang.String"/>
+	<parameter name="p_contribuyente" class="java.math.BigDecimal"/>
+	<queryString>
+		<![CDATA[Select * from (
+select 1 as q22
+, k.id
+, k.lv_contribuyente || '-' || t.cte_nombre as contribuyente
+, k.lv_fecha as lc_fecha
+, k.lv_CLIENTE_ruc || '-' || q.cli_nombre as proveedor
+, k.lv_montoexento as exento
+, k.lv_totalgravada10 as grav10
+, k.lv_montoiva10 as iva10
+, k.lv_totalgravadas5 as grav5
+, k.lv_montoiva5 as iva5
+, k.lv_montototal as total
+, to_char(lv_fecha,'YYYY/MM') as lc_periodo
+, k.lv_numerofactura as lc_numerofactura
+, k.lv_tipoiva as tiva
+, '10-VENTAS' ||' ESTADO '|| m.descripcion  as tipomov
+from libroventas k , CLIENTE q, contribuyente t, estado m
+where to_char(lv_fecha,'YYYYMM') =  $P{p_yyyymm}
+and k.lv_contribuyente =   $P{p_contribuyente}
+and k.lv_contribuyente= t.cte_codigo(+)
+and k.lv_CLIENTE_ruc = q.cli_codigo(+)
+and k.tuestado_id = m.id(+)
+-- and m.DESCRIPCION = '1-VALIDO'
+and k.tutipomov_id = 1676
+and k.tuestado_id = 1683
+union all
+select 1 as q22
+, k.id
+, k.lv_contribuyente || '-' || t.cte_nombre as contribuyente
+, k.lv_fecha as lc_fecha
+, k.lv_CLIENTE_ruc || '-' || q.cli_nombre as proveedor
+, k.lv_montoexento as exento
+, k.lv_totalgravada10 as grav10
+, k.lv_montoiva10 as iva10
+, k.lv_totalgravadas5 as grav5
+, k.lv_montoiva5 as iva5
+, k.lv_montototal as total
+, to_char(lv_fecha,'YYYY/MM') as lc_periodo
+, k.lv_numerofactura as lc_numerofactura
+, k.lv_tipoiva as tiva
+, '20-VENTAS DEDUCIBLES DE  RENTA' ||' ESTADO '|| m.descripcion  as tipomov
+from libroventas k , CLIENTE q, contribuyente t, estado m
+where to_char(lv_fecha,'YYYYMM') =  $P{p_yyyymm}
+and k.lv_contribuyente =   $P{p_contribuyente}
+and k.lv_contribuyente= t.cte_codigo(+)
+and k.lv_CLIENTE_ruc = q.cli_codigo(+)
+and k.tuestado_id = m.id(+)
+-- and m.DESCRIPCION = '1-VALIDO'
+and k.tutipomov_id = 5744
+and k.tuestado_id = 1683
+union all
+select 1 as q22
+, k.id
+, '.' as contribuyente
+, k.lv_fecha as lc_fecha
+, '.'  as proveedor
+, 0 as exento
+, 0 as grav10
+, 0 as iva10
+, 0 as grav5
+, 0 as iva5
+, 0 as total
+, to_char(lv_fecha,'YYYY/MM') as lc_periodo
+, k.lv_numerofactura as lc_numerofactura
+, k.lv_tipoiva as tiva
+, '30-VENTAS' || ' ESTADO ' || m.descripcion  as tipomov
+from libroventas k , CLIENTE q, contribuyente t, estado m
+where to_char(lv_fecha,'YYYYMM') =  $P{p_yyyymm}
+and k.lv_contribuyente =  $P{p_contribuyente}
+and k.lv_contribuyente= t.cte_codigo(+)
+and k.lv_CLIENTE_ruc = q.cli_codigo(+)
+and k.tuestado_id = m.id(+)
+-- and m.DESCRIPCION = '2-ANULADO'
+and k.tutipomov_id = 1676
+and k.tuestado_id = 1684
+union all
+select 1 as q22
+, k.id
+, '.' as contribuyente
+, k.lv_fecha as lc_fecha
+, '.'  as proveedor
+, 0 as exento
+, 0 as grav10
+, 0 as iva10
+, 0 as grav5
+, 0 as iva5
+, 0 as total
+, to_char(lv_fecha,'YYYY/MM') as lc_periodo
+, k.lv_numerofactura as lc_numerofactura
+, k.lv_tipoiva as tiva
+, '40-NOTA DE CREDITO' || ' ESTADO ' || m.descripcion  as tipomov
+from libroventas k , CLIENTE q, contribuyente t, estado m
+where to_char(lv_fecha,'YYYYMM') =  $P{p_yyyymm}
+and k.lv_contribuyente =  $P{p_contribuyente}
+and k.lv_contribuyente= t.cte_codigo(+)
+and k.lv_CLIENTE_ruc = q.cli_codigo(+)
+and k.tuestado_id = m.id(+)
+-- and m.DESCRIPCION = '2-VALIDO'
+and k.tutipomov_id = 3536
+and k.tuestado_id = 1684
+union all
+select 1 as q22
+, k.id
+, '.' as contribuyente
+, k.lv_fecha as lc_fecha
+, '.'  as proveedor
+, 0 as exento
+, 0 as grav10
+, 0 as iva10
+, 0 as grav5
+, 0 as iva5
+, 0 as total
+, to_char(lv_fecha,'YYYY/MM') as lc_periodo
+, k.lv_numerofactura as lc_numerofactura
+, k.lv_tipoiva as tiva
+, '50-NOTA DE CREDITO' || ' ESTADO ' || m.descripcion  as tipomov
+from libroventas k , CLIENTE q, contribuyente t, estado m
+where to_char(lv_fecha,'YYYYMM') =  $P{p_yyyymm}
+and k.lv_contribuyente =  $P{p_contribuyente}
+and k.lv_contribuyente= t.cte_codigo(+)
+and k.lv_CLIENTE_ruc = q.cli_codigo(+)
+and k.tuestado_id = m.id(+)
+-- and m.DESCRIPCION = '2-ANULADO'
+and k.tutipomov_id = 3536
+and k.tuestado_id = 1684
+union all
+select 1 as q22
+, k.id
+, k.lc_contribuyente || '-' || t.cte_nombre as contribuyente
+, k.lc_fecha
+, k.lc_proveedor_ruc || '-' || q.prv_nombre as proveedor
+, k.lc_montoexento as exento
+, k.lc_totalgravada10 as grav10
+, k.lc_montoiva10 as iva10
+, k.lc_totalgravadas5 as grav5
+, k.lc_montoiva5 as iva5
+, k.lc_montototal as total
+, to_char(lc_fecha,'YYYY/MM') as lc_periodo
+, k.lc_numerofactura
+, k.lc_tipoiva as tiva
+, '60-COMPRAS' ||' ESTADO '|| m.descripcion || ' DEDUCIBLE ' || x.descripcion as tipomov
+from librocompras k , proveedor q, contribuyente t, estado m, deducible x
+where to_char(lc_fecha,'YYYYMM') = $P{p_yyyymm}
+and k.lc_contribuyente =  $P{p_contribuyente}
+and k.lc_contribuyente= t.cte_codigo(+)
+and k.lc_proveedor_ruc = q.prv_codigo(+)
+and k.tuestado_id = m.id(+)
+and k.tudeducible_id = x.id(+)
+and k.tutipomov_id = 1675
+and k.tudeducible_id = 1681
+union all
+select 1 as q22
+, k.id
+, k.lc_contribuyente || '-' || t.cte_nombre as contribuyente
+, k.lc_fecha
+, k.lc_proveedor_ruc || '-' || q.prv_nombre as proveedor
+, k.lc_montoexento as exento
+, k.lc_totalgravada10 as grav10
+, k.lc_montoiva10 as iva10
+, k.lc_totalgravadas5 as grav5
+, k.lc_montoiva5 as iva5
+, k.lc_montototal as total
+, to_char(lc_fecha,'YYYY/MM') as lc_periodo
+, k.lc_numerofactura
+, k.lc_tipoiva as tiva
+, '70-COMPRAS' ||' ESTADO '|| m.descripcion || ' NO DEDUCIBLE ' || x.descripcion as tipomov
+from librocompras k , proveedor q, contribuyente t, estado m, deducible x
+where to_char(lc_fecha,'YYYYMM') = $P{p_yyyymm}
+and k.lc_contribuyente =  $P{p_contribuyente}
+and k.lc_contribuyente= t.cte_codigo(+)
+and k.lc_proveedor_ruc = q.prv_codigo(+)
+and k.tuestado_id = m.id(+)
+and k.tudeducible_id = x.id(+)
+and k.tutipomov_id = 1675
+and k.tudeducible_id = 1682
+union all
+select 1 as q22
+, k.id
+, k.lc_contribuyente || '-' || t.cte_nombre as contribuyente
+, k.lc_fecha
+, k.lc_proveedor_ruc || '-' || q.prv_nombre as proveedor
+, k.lc_montoexento as exento
+, k.lc_totalgravada10 as grav10
+, k.lc_montoiva10 as iva10
+, k.lc_totalgravadas5 as grav5
+, k.lc_montoiva5 as iva5
+, k.lc_montototal as total
+, to_char(lc_fecha,'YYYY/MM') as lc_periodo
+, k.lc_numerofactura
+, k.lc_tipoiva as tiva
+, '80-AUTOFACTURA' ||' ESTADO '|| m.descripcion || ' DEDUCIBLE ' || x.descripcion as tipomov
+from librocompras k , proveedor q, contribuyente t, estado m, deducible x
+where to_char(lc_fecha,'YYYYMM') = $P{p_yyyymm}
+and k.lc_contribuyente =  $P{p_contribuyente}
+and k.lc_contribuyente= t.cte_codigo(+)
+and k.lc_proveedor_ruc = q.prv_codigo(+)
+and k.tuestado_id = m.id(+)
+and k.tudeducible_id = x.id(+)
+and k.tutipomov_id = 3535
+and k.tudeducible_id = 1681
+union all
+select 1 as q22
+, k.id
+, k.lc_contribuyente || '-' || t.cte_nombre as contribuyente
+, k.lc_fecha
+, k.lc_proveedor_ruc || '-' || q.prv_nombre as proveedor
+, k.lc_montoexento as exento
+, k.lc_totalgravada10 as grav10
+, k.lc_montoiva10 as iva10
+, k.lc_totalgravadas5 as grav5
+, k.lc_montoiva5 as iva5
+, k.lc_montototal as total
+, to_char(lc_fecha,'YYYY/MM') as lc_periodo
+, k.lc_numerofactura
+, k.lc_tipoiva as tiva
+, '90-AUTOFACTURA' ||' ESTADO '|| m.descripcion || ' NO DEDUCIBLE ' || x.descripcion as tipomov
+from librocompras k , proveedor q, contribuyente t, estado m, deducible x
+where to_char(lc_fecha,'YYYYMM') = $P{p_yyyymm}
+and k.lc_contribuyente =  $P{p_contribuyente}
+and k.lc_contribuyente= t.cte_codigo(+)
+and k.lc_proveedor_ruc = q.prv_codigo(+)
+and k.tuestado_id = m.id(+)
+and k.tudeducible_id = x.id(+)
+and k.tutipomov_id = 3535
+and k.tudeducible_id = 1682
+union all
+select 1 as q22
+, k.id
+, r.cte_codigo || '-' || r.cte_nombre as contribuyente
+, k.fecha
+, w.cli_codigo || '-' || w.cli_nombre as proveedor
+, 0 as exento
+, 0 as grav10
+, k.totalret as iva10
+, 0 as grav5
+, 0 as iva5
+, k.montototal as total
+, to_char(k.fecha,'YYYY/MM') as lc_periodo
+, to_char(k.numerocomprobante) as lc_numerofactura
+, 1 as tiva
+, '91-RETENCIONES'  as tipomov
+from retenciones k , cliente w, contribuyente r
+where k.agente_id = w.id(+)
+and k.contribuyente_id = r.id(+)
+and to_char(fecha,'YYYYMM') =  $P{p_yyyymm}
+and r.cte_codigo =   $P{p_contribuyente}
+union all
+select 1 as q22
+, k.id
+, k.lc_contribuyente || '-' || t.cte_nombre as contribuyente
+, k.lc_fecha
+, k.lc_proveedor_ruc || '-' || q.prv_nombre as proveedor
+, k.lc_montoexento as exento
+, k.lc_totalgravada10 as grav10
+, k.lc_montoiva10 as iva10
+, k.lc_totalgravadas5 as grav5
+, k.lc_montoiva5 as iva5
+, k.lc_montototal as total
+, to_char(lc_fecha,'YYYY/MM') as lc_periodo
+, k.lc_numerofactura
+, k.lc_tipoiva as tiva
+, '92-PAGO DE IMPUESTOS ' ||' ESTADO '|| m.descripcion || ' ' || x.descripcion as tipomov
+from librocompras k , proveedor q, contribuyente t, estado m, deducible x
+where to_char(lc_fecha,'YYYYMM') = $P{p_yyyymm}
+and k.lc_contribuyente =  $P{p_contribuyente}
+and k.lc_contribuyente= t.cte_codigo(+)
+and k.lc_proveedor_ruc = q.prv_codigo(+)
+and k.tuestado_id = m.id(+)
+and k.tudeducible_id = x.id(+)
+and k.tutipomov_id = 5603
+and k.tudeducible_id = 1681
+union all
+select 1 as q22
+, k.id
+, k.lc_contribuyente || '-' || t.cte_nombre as contribuyente
+, k.lc_fecha
+, k.lc_proveedor_ruc || '-' || q.prv_nombre as proveedor
+, k.lc_montoexento as exento
+, k.lc_totalgravada10 as grav10
+, k.lc_montoiva10 as iva10
+, k.lc_totalgravadas5 as grav5
+, k.lc_montoiva5 as iva5
+, k.lc_montototal as total
+, to_char(lc_fecha,'YYYY/MM') as lc_periodo
+, k.lc_numerofactura
+, k.lc_tipoiva as tiva
+, '93-PAGO DE TARJETAS ' ||' ESTADO '|| m.descripcion || ' ' || x.descripcion as tipomov
+from librocompras k , proveedor q, contribuyente t, estado m, deducible x
+where to_char(lc_fecha,'YYYYMM') = $P{p_yyyymm}
+and k.lc_contribuyente =  $P{p_contribuyente}
+and k.lc_contribuyente= t.cte_codigo(+)
+and k.lc_proveedor_ruc = q.prv_codigo(+)
+and k.tuestado_id = m.id(+)
+and k.tudeducible_id = x.id(+)
+and k.tutipomov_id = 5604
+and k.tudeducible_id = 1681
+
+union all
+select 1 as q22
+, k.id
+, k.lc_contribuyente || '-' || t.cte_nombre as contribuyente
+, k.lc_fecha
+, k.lc_proveedor_ruc || '-' || q.prv_nombre as proveedor
+, k.lc_montoexento as exento
+, k.lc_totalgravada10 as grav10
+, k.lc_montoiva10 as iva10
+, k.lc_totalgravadas5 as grav5
+, k.lc_montoiva5 as iva5
+, k.lc_montototal as total
+, to_char(lc_fecha,'YYYY/MM') as lc_periodo
+, k.lc_numerofactura
+, k.lc_tipoiva as tiva
+, '94-PAGO DE PRESTAMOS ' ||' ESTADO '|| m.descripcion || ' ' || x.descripcion as tipomov
+from librocompras k , proveedor q, contribuyente t, estado m, deducible x
+where to_char(lc_fecha,'YYYYMM') = $P{p_yyyymm}
+and k.lc_contribuyente =  $P{p_contribuyente}
+and k.lc_contribuyente= t.cte_codigo(+)
+and k.lc_proveedor_ruc = q.prv_codigo(+)
+and k.tuestado_id = m.id(+)
+and k.tudeducible_id = x.id(+)
+and k.tutipomov_id = 8104
+and k.tudeducible_id = 1681
+
+union all
+select 1 as q22
+, k.id
+, k.CRE_contribuyente || '-' || t.cte_nombre as contribuyente
+, cast(k.CRE_fecha as date) as LC_fecha
+, k.CRE_proveedor_ruc || '-' || q.prv_nombre as proveedor
+, k.CRE_montoexento as exento
+, k.CRE_totalgravada10 as grav10
+, k.CRE_montoiva10 as iva10
+, k.CRE_totalgravadas5 as grav5
+, k.CRE_montoiva5 as iva5
+, k.CRE_montototal as total
+, to_char(CRE_fecha,'YYYY/MM') as CRE_periodo
+, k.CRE_numerofactura
+, k.CRE_tipoiva as tiva
+, '95-COMPRAS RETRASADAS' ||' ESTADO '|| m.descripcion || ' DEDUCIBLE ' || x.descripcion as tipomov
+from COMPRASRETRASADAS k , proveedor q, contribuyente t, estado m, deducible x
+where to_char(CRE_fecha,'YYYY') = substr($P{p_yyyymm},1,4)
+and k.CRE_contribuyente =  $P{p_contribuyente}
+and k.CRE_contribuyente= t.cte_codigo(+)
+and k.CRE_proveedor_ruc = q.prv_codigo(+)
+and k.CRE_tuestado_id = m.id(+)
+and k.CRE_tudeducible_id = x.id(+)
+and k.CRE_tutipomov_id = 22211
+and k.CRE_tudeducible_id = 1681
+union all
+select 1 as q22
+, k.id
+, k.CRE_contribuyente || '-' || t.cte_nombre as contribuyente
+, cast(k.CRE_fecha as date ) as LC_fecha
+, k.CRE_proveedor_ruc || '-' || q.prv_nombre as proveedor
+, k.CRE_montoexento as exento
+, k.CRE_totalgravada10 as grav10
+, k.CRE_montoiva10 as iva10
+, k.CRE_totalgravadas5 as grav5
+, k.CRE_montoiva5 as iva5
+, k.CRE_montototal as total
+, to_char(CRE_fecha,'YYYY/MM') as CRE_periodo
+, k.CRE_numerofactura
+, k.CRE_tipoiva as tiva
+, '96-COMPRAS RETRASADAS' ||' ESTADO '|| m.descripcion || ' NO DEDUCIBLE ' || x.descripcion as tipomov
+from COMPRASRETRASADAS k , proveedor q, contribuyente t, estado m, deducible x
+where to_char(CRE_fecha,'YYYY') = substr($P{p_yyyymm},1,4)
+and k.CRE_contribuyente =  $P{p_contribuyente}
+and k.CRE_contribuyente= t.cte_codigo(+)
+and k.CRE_proveedor_ruc = q.prv_codigo(+)
+and k.CRE_tuestado_id = m.id(+)
+and k.CRE_tudeducible_id = x.id(+)
+and k.CRE_tutipomov_id = 22211
+and k.CRE_tudeducible_id = 1682
+
+
+) order by tipomov, lc_fecha]]>
+	</queryString>
+	<field name="Q22" class="java.math.BigDecimal"/>
+	<field name="ID" class="java.math.BigDecimal"/>
+	<field name="CONTRIBUYENTE" class="java.lang.String"/>
+	<field name="LC_FECHA" class="java.sql.Timestamp"/>
+	<field name="PROVEEDOR" class="java.lang.String"/>
+	<field name="EXENTO" class="java.math.BigDecimal"/>
+	<field name="GRAV10" class="java.math.BigDecimal"/>
+	<field name="IVA10" class="java.math.BigDecimal"/>
+	<field name="GRAV5" class="java.math.BigDecimal"/>
+	<field name="IVA5" class="java.math.BigDecimal"/>
+	<field name="TOTAL" class="java.math.BigDecimal"/>
+	<field name="LC_PERIODO" class="java.lang.String"/>
+	<field name="LC_NUMEROFACTURA" class="java.lang.String"/>
+	<field name="TIVA" class="java.math.BigDecimal"/>
+	<field name="TIPOMOV" class="java.lang.String"/>
+	<variable name="texen" class="java.math.BigDecimal" resetType="Group" resetGroup="tipomov" calculation="Sum">
+		<variableExpression><![CDATA[$F{EXENTO}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="tgrav10" class="java.math.BigDecimal" resetType="Group" resetGroup="tipomov" calculation="Sum">
+		<variableExpression><![CDATA[$F{GRAV10}]]></variableExpression>
+	</variable>
+	<variable name="tiva10" class="java.math.BigDecimal" resetType="Group" resetGroup="tipomov" calculation="Sum">
+		<variableExpression><![CDATA[$F{IVA10}]]></variableExpression>
+	</variable>
+	<variable name="tgrav5" class="java.math.BigDecimal" resetType="Group" resetGroup="tipomov" calculation="Sum">
+		<variableExpression><![CDATA[$F{GRAV5}]]></variableExpression>
+	</variable>
+	<variable name="tiva5" class="java.math.BigDecimal" resetType="Group" resetGroup="tipomov" calculation="Sum">
+		<variableExpression><![CDATA[$F{IVA5}]]></variableExpression>
+	</variable>
+	<variable name="ttotal" class="java.math.BigDecimal" resetType="Group" resetGroup="tipomov" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="contadorfeliz" class="java.math.BigDecimal" resetType="Group" resetGroup="tipomov" calculation="Count">
+		<variableExpression><![CDATA[$F{Q22}]]></variableExpression>
+	</variable>
+	<group name="CONTRIBUYENTE">
+		<groupExpression><![CDATA[$F{CONTRIBUYENTE}]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<group name="tipomov">
+		<groupExpression><![CDATA[$F{TIPOMOV}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement x="120" y="7" width="374" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{TIPOMOV}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line" positionType="FixRelativeToBottom" x="2" y="35" width="802" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="28">
+				<line>
+					<reportElement key="line" positionType="FixRelativeToBottom" x="4" y="4" width="802" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="722" y="10" width="72" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{ttotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="543" y="10" width="54" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{tiva10}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="410" y="10" width="54" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{texen}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="661" y="10" width="57" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{tiva5}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="599" y="10" width="56" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{tgrav5}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="466" y="10" width="72" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{tgrav10}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="102" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" style="Title" x="234" y="4" width="365" height="38"/>
+				<textElement verticalAlignment="Middle">
+					<font size="30" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Libro de ventas y compras]]></text>
+			</staticText>
+			<frame>
+				<reportElement key="frame" mode="Opaque" x="0" y="49" width="802" height="24" forecolor="#B89F7D" backcolor="#F2EBDF"/>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" style="SubTitle" x="309" y="3" width="470" height="14" forecolor="#736343"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{CONTRIBUYENTE}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" style="SubTitle" x="82" y="3" width="81" height="14" forecolor="#736343"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{p_yyyymm}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText" style="Title" x="170" y="0" width="129" height="24"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" pdfFontName="Times-Roman"/>
+					</textElement>
+					<text><![CDATA[CONTRIBUYENTE]]></text>
+				</staticText>
+			</frame>
+			<staticText>
+				<reportElement key="staticText" style="Title" x="2" y="49" width="68" height="24"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[PERIODO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="Column header" x="68" y="80" width="46" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="Column header" x="120" y="80" width="179" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[CLIENTE/PROVEEDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="Column header" x="410" y="80" width="54" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[EXEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="Column header" x="466" y="80" width="72" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[GRAV10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="Column header" x="543" y="80" width="54" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[IVA10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="Column header" x="599" y="80" width="56" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[GRAV5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="Column header" x="661" y="80" width="57" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[IVA5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="Column header" x="722" y="80" width="72" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="Column header" x="313" y="81" width="93" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[FACTURA]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line" positionType="FixRelativeToBottom" x="0" y="98" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement key="staticText" style="Column header" x="26" y="80" width="41" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<frame>
+				<reportElement key="frame" style="Row" mode="Opaque" x="0" y="0" width="802" height="15"/>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="67" y="0" width="52" height="15"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{LC_FECHA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="119" y="0" width="192" height="15"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{PROVEEDOR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="410" y="0" width="54" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{EXENTO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement key="textField-2" style="Detail" x="1" y="0" width="25" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{contadorfeliz}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="466" y="0" width="72" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{GRAV10}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="543" y="0" width="54" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{IVA10}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="599" y="0" width="56" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{GRAV5}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="661" y="0" width="57" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{IVA5}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="722" y="0" width="72" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="313" y="0" width="93" height="15"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{LC_NUMEROFACTURA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement key="textField" style="Detail" x="26" y="0" width="41" height="15"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ID}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch">
+			<line>
+				<reportElement key="line" positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement key="frame" mode="Opaque" x="-1" y="1" width="802" height="24" forecolor="#D0B48E" backcolor="#F2EBDF"/>
+				<textField evaluationTime="Report" isBlankWhenNull="false">
+					<reportElement key="textField" style="Column header" x="737" y="1" width="40" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" style="Column header" x="627" y="1" width="110" height="20" forecolor="#736343"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Pagina "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="false">
+					<reportElement key="textField" style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="40" splitType="Stretch">
+			<line>
+				<reportElement key="line" positionType="FixRelativeToBottom" x="0" y="6" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement key="staticText" style="Column header" x="170" y="17" width="143" height="15" forecolor="#736343"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[FIN DE INFORME]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
