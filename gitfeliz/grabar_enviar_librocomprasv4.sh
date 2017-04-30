@@ -5,6 +5,8 @@ cp /home/xoldfusion/Downloads/openxava-5.6.1_librocomprasv4/tomcat/conf/*.xml li
 cp *.sh librocomprasv4/gitfeliz
 cp -r openshiftfeliz librocomprasv4/
 cp -r pentaho_transformacion librocomprasv4/
+rm -R librocomprasv4/jasperfeliz/*
+rm -R jarperfeliz/*.*~
 cp -r jasperfeliz librocomprasv4/
 cp -r tomcatfeliz librocomprasv4/
 cp  amazon2017llave/*.sh librocomprasv4/amazon2017llave
