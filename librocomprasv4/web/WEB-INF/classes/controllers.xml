@@ -22,4 +22,27 @@
 	</controller>    
     -->
     
+   <controller name="Periodos">
+    	<extends controller="Typical"/>
+    	<action name="imprimeLibro"    	
+    	    description="Para imprimir el libro de ventas y compras"
+    	    mode="list"
+    	    icon="printer" 
+    	    keystroke="Control P"
+        	class="biz.lcompras.acciones.LibroComprasImpresionAction">
+    	</action>
+	</controller>        
+    
+   <controller name="InversionesInforme">
+    	<extends controller="Typical"/>
+    	<action name="imprimeInversiones"    	
+    	    description="Para imprimir el informe de inversiones"
+    	    mode="list"
+    	    icon="printer" 
+    	    keystroke="Control P"
+        	class="biz.lcompras.acciones.InversionesImpresionAction">
+    	</action>
+	</controller>        
+
+
 </controllers>

@@ -58,3 +58,7 @@ vamos por el tema fonts
 2017.4.30a. Buena bibliografia sobre CONECCIONES JNDI
 	stackoverflow.com/questions/15064260/should-you-set-up-database-connection-properties-in-server-xml-or-context-xml
 2017.4.30b. Agrego en persistence.xml algunos cambios que hacen mas rapida la conexion a la base 9.3 postgres
+
+2017.4.30c. Recuerda poner en el classpath el commons-dbutils-1.6, de otro modo se queja
+
+2017.5.30d. Los informes tipo PGBEANS son simplemente los informe comunes a los cuales se les borra el query.

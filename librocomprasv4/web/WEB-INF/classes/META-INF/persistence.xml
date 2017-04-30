@@ -15,9 +15,9 @@
     	<!-- para que no me cree la tabla discussion comments 2017
     			<class>org.openxava.web.editors.DiscussionComment</class> -->
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-			<property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
-			<property name="hibernate.jdbc.use_get_generated_keys" value="true"/>			
+        <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+	<property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+	<property name="hibernate.jdbc.use_get_generated_keys" value="true"/>			
         </properties>
     </persistence-unit>    
         
@@ -25,14 +25,13 @@
     <persistence-unit name="junit">
          <provider>org.hibernate.ejb.HibernatePersistence</provider>
          <properties>
-		<!-- <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/> -->			   			              
-             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-             <property name="hibernate.connection.url" 
-             value="jdbc:postgresql://52.207.31.88:5432/manzanas"/>
-             <property name="hibernate.connection.username" value="manzanas"/>
-             <property name="hibernate.connection.password" value="googolplex123abc"/>
-             <property name="hibernate.jdbc.use_get_generated_keys" value="true" />
-			 <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />             
+	<!-- <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/> -->			   			              
+         <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+         <property name="hibernate.connection.url" value="jdbc:postgresql://52.207.31.88:5432/manzanas"/>
+         <property name="hibernate.connection.username" value="manzanas"/>
+         <property name="hibernate.connection.password" value="googolplex123abc"/>
+         <property name="hibernate.jdbc.use_get_generated_keys" value="true" />
+	 <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />             
          </properties>
      </persistence-unit>
 </persistence>
