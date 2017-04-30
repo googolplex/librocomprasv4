@@ -53,4 +53,8 @@ vamos por el tema fonts
 
 2017.4.17a. El tema VPN lo agrego con la receta que encontre en digital ocean strongswan
 
-2017.5.27a. Le agrego el Modulo de inversiones , cambio de la version 3 a la version4
+2017.4.27a. Le agrego el Modulo de inversiones , cambio de la version 3 a la version4
+
+2017.4.30a. Buena bibliografia sobre CONECCIONES JNDI
+	stackoverflow.com/questions/15064260/should-you-set-up-database-connection-properties-in-server-xml-or-context-xml
+2017.4.30b. Agrego en persistence.xml algunos cambios que hacen mas rapida la conexion a la base 9.3 postgres

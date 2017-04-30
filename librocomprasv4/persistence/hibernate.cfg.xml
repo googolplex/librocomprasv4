@@ -11,11 +11,10 @@ persistence.xml.
  -->	
 <hibernate-configuration>
 	<session-factory>
-
-		<!-- Tomcat + Hypersonic -->		<property name="hibernate.connection.datasource">java://comp/env/jdbc/librocomprasv4DS</property>		<property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+		<!-- TOMCAT + POSTGRES 9.4 (conexion lenta)  			agregado el 2017.5.30a					al final no use esta parte, se puede dejar como estaba					<property name="hibernate.connection.datasource">java://comp/env/jdbc/librocomprasv4</property>		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>		<property name="hibernate.jdbc.use_get_generated_keys">true</property>		<property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>				<property name="hibernate.show_sql">false</property>		<property name="hibernate.connection.release_mode">after_transaction</property>		-->
+		<!-- Tomcat + Hypersonic 		<property name="hibernate.connection.datasource">java://comp/env/jdbc/librocomprasv4DS</property>		<property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
 		<property name="hibernate.jdbc.use_get_generated_keys">false</property>		
-		<property name="hibernate.show_sql">false</property>		<property name="hibernate.connection.release_mode">after_transaction</property>
-				
+		<property name="hibernate.show_sql">false</property>		<property name="hibernate.connection.release_mode">after_transaction</property>				-->						
 		<!-- WebSphere + AS/400 
 		<property name="hibernate.connection.datasource">jdbc/librocomprasv4DS</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.DB2400Dialect</property>

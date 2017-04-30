@@ -5,15 +5,19 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
              version="1.0">
              
-    <!-- JNDI librocomprasv4 Tomcat + Postgres AMAZON EC2 -->
+    <!-- JNDI librocomprasv4 Tomcat + Postgres AMAZON EC2 
+    	metadaa y generated key agregado el 2017.4.30
+    -->
     <persistence-unit name="default">
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
     	<non-jta-data-source>java://comp/env/jdbc/librocomprasv4</non-jta-data-source>
     	<class>org.openxava.session.GalleryImage</class>
-    	<!-- para que no me creee la tabla discussion comments 2017
+    	<!-- para que no me cree la tabla discussion comments 2017
     			<class>org.openxava.web.editors.DiscussionComment</class> -->
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>                       
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+			<property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+			<property name="hibernate.jdbc.use_get_generated_keys" value="true"/>			
         </properties>
     </persistence-unit>    
         
