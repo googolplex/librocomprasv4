@@ -11,5 +11,5 @@ cp  amazon2017llave/*.sh librocomprasv4/amazon2017llave
 rm *.*~
 cd librocomprasv4
 git add -A
-git commit -a -m "corrijo el build.xml - nueva version postgres"
+git commit -a -m "agrego el mapa de transferencia pentaho"
 git push -u origin master
